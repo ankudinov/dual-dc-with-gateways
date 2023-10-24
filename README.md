@@ -1,3 +1,3 @@
 # dual-dc-with-gateways
 
-![Lab topology](drawio/lab_topo.png)
+![Lab topology](https://avd.sh/en/stable/examples/dual-dc-l3ls/images/avd-dual-dc-l3ls-example.svg)
