@@ -7,3 +7,7 @@ help: ## Display help message
 .PHONY: build
 build: ## Generate AVD configs
 	cd $(CURRENT_DIR)/dual-dc-l3ls; ansible-playbook build.yml
+
+.PHONY: deploy
+deploy: ## Deploy AVD configs using eAPI
+	cd $(CURRENT_DIR)/dual-dc-l3ls; ansible-playbook deploy.yml
