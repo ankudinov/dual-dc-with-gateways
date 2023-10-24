@@ -1,0 +1,16 @@
+{
+	"name": "ansible-avd-devcontainer",
+	"build": {
+        "dockerfile": "Dockerfile",
+        "args": {
+            "_AR_FILE_PATH": "/support/download/EOS-USA/Active Releases/4.30/EOS-4.30.3M/cEOS-lab/cEOS-lab-4.30.3M.tar.xz",
+            "_ARTOKEN": "${localEnv:ARTOKEN}"
+        }
+    },
+    "onCreateCommand": "docker import /home/vscode/tmp/ceos-lab-temp ceos-lab:latest; rm -rf /home/vscode/tmp/",
+    // set minimum host requirements for cLab
+    "hostRequirements": {
+        "cpus": 8,
+        "memory": "16gb"
+    }
+}
