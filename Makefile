@@ -11,3 +11,11 @@ build: ## Generate AVD configs
 .PHONY: deploy
 deploy: ## Deploy AVD configs using eAPI
 	cd $(CURRENT_DIR)/dual-dc-l3ls; ansible-playbook deploy.yml
+
+.PHONY: start
+start: ## Deploy ceos lab
+	sudo containerlab deploy --debug --topo $(CURRENT_DIR)/clab/topology.clab.yml --max-workers 2 --timeout 5m --reconfigure
+
+.PHONY: stop
+stop: ## Destroy ceos lab
+	sudo containerlab destroy --debug --topo $(CURRENT_DIR)/clab/topology.clab.yml --cleanup
