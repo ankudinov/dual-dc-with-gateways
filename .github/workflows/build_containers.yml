@@ -21,7 +21,7 @@
             container_name: [demo-base]
             avd_version: ["4.1.0", "4.2.0", "4.3.0", "4.4.0"]
             ansible_core_version: ["ansible-core>=2.13.1,<2.14.0"]
-            clab_version: ["0.44.3"]
+            clab_version: ["0.47.0"]
             include:
               - avd_version: "4.1.0"
                 container_tags: "4.1.0"
