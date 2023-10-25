@@ -114,4 +114,4 @@ clab/cv-onboarding-token
 !.gitignored/README.md
 
 # ignore avd backups
-config_backup/*
+config_backup
