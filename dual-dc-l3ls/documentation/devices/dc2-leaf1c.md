@@ -303,4 +303,6 @@ interface Vlan10
   ip address 10.10.10.21/24
 interface Vlan12
   ip address 10.10.12.21/24
+!
+ip route 0/0 10.10.12.1
 ```
