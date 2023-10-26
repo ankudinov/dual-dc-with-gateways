@@ -20,6 +20,12 @@ tenants:
           # to each l3 leaf based on it's unique id.
           loopback_ip_range: 10.255.10.0/27
         svis:
+          # VLAN 10 will be extended between DCs
+          - id: 10
+            name: VRF10_VLAN10
+            enabled: true
+            ip_address_virtual: 10.10.10.1/24
+          # VLAN 11 is local to DC1
           - id: 11
             name: VRF10_VLAN11
             enabled: true
