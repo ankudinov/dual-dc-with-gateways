@@ -1,0 +1,8 @@
+---
+eos_cli: |
+  route-map RM-TO-OVERLAY-CORE permit 10
+    match route-type local
+  !
+  router bgp 65202
+    address-family evpn
+      neighbor EVPN-OVERLAY-CORE route-map RM-TO-OVERLAY-CORE out

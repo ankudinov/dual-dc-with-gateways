@@ -45,6 +45,7 @@
 - [Virtual Source NAT](#virtual-source-nat)
   - [Virtual Source NAT Summary](#virtual-source-nat-summary)
   - [Virtual Source NAT Configuration](#virtual-source-nat-configuration)
+- [EOS CLI](#eos-cli)
 
 ## Management
 
@@ -786,4 +787,16 @@ vrf instance VRF10
 ```eos
 !
 ip address virtual source-nat vrf VRF10 address 10.255.10.5
+```
+
+## EOS CLI
+
+```eos
+!
+route-map RM-TO-OVERLAY-CORE permit 10
+  match route-type local
+!
+router bgp 65102
+  address-family evpn
+    neighbor EVPN-OVERLAY-CORE route-map RM-TO-OVERLAY-CORE out
 ```
