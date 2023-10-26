@@ -65,13 +65,10 @@ port_channel_interfaces:
   type: switched
   shutdown: false
   mode: trunk
-  vlans: 11-12
+  vlans: '11'
 vlans:
 - id: 11
   name: VRF10_VLAN11
-  tenant: TENANT1
-- id: 12
-  name: VRF10_VLAN12
   tenant: TENANT1
 ip_igmp_snooping:
   globally_enabled: true

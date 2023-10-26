@@ -190,7 +190,6 @@ vlan internal order ascending range 1006 1199
 | VLAN ID | Name | Trunk Groups |
 | ------- | ---- | ------------ |
 | 11 | VRF10_VLAN11 | - |
-| 12 | VRF10_VLAN12 | - |
 | 3009 | MLAG_iBGP_VRF10 | LEAF_PEER_L3 |
 | 4093 | LEAF_PEER_L3 | LEAF_PEER_L3 |
 | 4094 | MLAG_PEER | MLAG |
@@ -201,9 +200,6 @@ vlan internal order ascending range 1006 1199
 !
 vlan 11
    name VRF10_VLAN11
-!
-vlan 12
-   name VRF10_VLAN12
 !
 vlan 3009
    name MLAG_iBGP_VRF10
@@ -349,7 +345,6 @@ interface Loopback10
 | Interface | Description | VRF |  MTU | Shutdown |
 | --------- | ----------- | --- | ---- | -------- |
 | Vlan11 | VRF10_VLAN11 | VRF10 | - | False |
-| Vlan12 | VRF10_VLAN12 | VRF10 | - | False |
 | Vlan3009 | MLAG_PEER_L3_iBGP: vrf VRF10 | VRF10 | 1500 | False |
 | Vlan4093 | MLAG_PEER_L3_PEERING | default | 1500 | False |
 | Vlan4094 | MLAG_PEER | default | 1500 | False |
@@ -359,7 +354,6 @@ interface Loopback10
 | Interface | VRF | IP Address | IP Address Virtual | IP Router Virtual Address | VRRP | ACL In | ACL Out |
 | --------- | --- | ---------- | ------------------ | ------------------------- | ---- | ------ | ------- |
 | Vlan11 |  VRF10  |  -  |  10.10.11.1/24  |  -  |  -  |  -  |  -  |
-| Vlan12 |  VRF10  |  -  |  10.10.12.1/24  |  -  |  -  |  -  |  -  |
 | Vlan3009 |  VRF10  |  10.255.1.101/31  |  -  |  -  |  -  |  -  |  -  |
 | Vlan4093 |  default  |  10.255.1.101/31  |  -  |  -  |  -  |  -  |  -  |
 | Vlan4094 |  default  |  10.255.1.69/31  |  -  |  -  |  -  |  -  |  -  |
@@ -373,12 +367,6 @@ interface Vlan11
    no shutdown
    vrf VRF10
    ip address virtual 10.10.11.1/24
-!
-interface Vlan12
-   description VRF10_VLAN12
-   no shutdown
-   vrf VRF10
-   ip address virtual 10.10.12.1/24
 !
 interface Vlan3009
    description MLAG_PEER_L3_iBGP: vrf VRF10
@@ -416,7 +404,6 @@ interface Vlan4094
 | VLAN | VNI | Flood List | Multicast Group |
 | ---- | --- | ---------- | --------------- |
 | 11 | 10011 | - | - |
-| 12 | 10012 | - | - |
 
 ##### VRF to VNI and Multicast Group Mappings
 
@@ -434,7 +421,6 @@ interface Vxlan1
    vxlan virtual-router encapsulation mac-address mlag-system-id
    vxlan udp-port 4789
    vxlan vlan 11 vni 10011
-   vxlan vlan 12 vni 10012
    vxlan vrf VRF10 vni 10
 ```
 
@@ -596,7 +582,6 @@ ip route vrf MGMT 0.0.0.0/0 172.16.1.1
 | VLAN | Route-Distinguisher | Both Route-Target | Import Route Target | Export Route-Target | Redistribute |
 | ---- | ------------------- | ----------------- | ------------------- | ------------------- | ------------ |
 | 11 | 10.255.0.6:10011 | 10011:10011<br>remote 10011:10011 | - | - | learned |
-| 12 | 10.255.0.6:10012 | 10012:10012<br>remote 10012:10012 | - | - | learned |
 
 #### Router BGP VRFs
 
@@ -664,13 +649,6 @@ router bgp 65102
       rd evpn domain remote 10.255.0.6:10011
       route-target both 10011:10011
       route-target import export evpn domain remote 10011:10011
-      redistribute learned
-   !
-   vlan 12
-      rd 10.255.0.6:10012
-      rd evpn domain remote 10.255.0.6:10012
-      route-target both 10012:10012
-      route-target import export evpn domain remote 10012:10012
       redistribute learned
    !
    address-family evpn

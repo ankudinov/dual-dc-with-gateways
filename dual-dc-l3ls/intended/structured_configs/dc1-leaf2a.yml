@@ -123,20 +123,6 @@ router_bgp:
     rd_evpn_domain:
       domain: remote
       rd: 10.255.0.5:10011
-  - id: 12
-    tenant: TENANT1
-    rd: 10.255.0.5:10012
-    route_targets:
-      both:
-      - 10012:10012
-      import_export_evpn_domains:
-      - domain: remote
-        route_target: 10012:10012
-    redistribute_routes:
-    - learned
-    rd_evpn_domain:
-      domain: remote
-      rd: 10.255.0.5:10012
 static_routes:
 - vrf: MGMT
   destination_address_prefix: 0.0.0.0/0
@@ -195,9 +181,6 @@ vlans:
 - id: 11
   name: VRF10_VLAN11
   tenant: TENANT1
-- id: 12
-  name: VRF10_VLAN12
-  tenant: TENANT1
 - id: 3009
   name: MLAG_iBGP_VRF10
   trunk_groups:
@@ -220,12 +203,6 @@ vlan_interfaces:
   description: VRF10_VLAN11
   shutdown: false
   ip_address_virtual: 10.10.11.1/24
-  vrf: VRF10
-- name: Vlan12
-  tenant: TENANT1
-  description: VRF10_VLAN12
-  shutdown: false
-  ip_address_virtual: 10.10.12.1/24
   vrf: VRF10
 - name: Vlan3009
   tenant: TENANT1
@@ -352,8 +329,6 @@ vxlan_interface:
       vlans:
       - id: 11
         vni: 10011
-      - id: 12
-        vni: 10012
       vrfs:
       - name: VRF10
         vni: 10

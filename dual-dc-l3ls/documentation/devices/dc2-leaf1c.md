@@ -145,15 +145,11 @@ vlan internal order ascending range 1006 1199
 
 | VLAN ID | Name | Trunk Groups |
 | ------- | ---- | ------------ |
-| 11 | VRF10_VLAN11 | - |
 | 12 | VRF10_VLAN12 | - |
 
 ### VLANs Device Configuration
 
 ```eos
-!
-vlan 11
-   name VRF10_VLAN11
 !
 vlan 12
    name VRF10_VLAN12
@@ -169,8 +165,8 @@ vlan 12
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
-| Ethernet1 | DC2-LEAF1A_Ethernet8 | *trunk | *11-12 | *- | *- | 1 |
-| Ethernet2 | DC2-LEAF1B_Ethernet8 | *trunk | *11-12 | *- | *- | 1 |
+| Ethernet1 | DC2-LEAF1A_Ethernet8 | *trunk | *12 | *- | *- | 1 |
+| Ethernet2 | DC2-LEAF1B_Ethernet8 | *trunk | *12 | *- | *- | 1 |
 
 *Inherited from Port-Channel Interface
 
@@ -197,7 +193,7 @@ interface Ethernet2
 
 | Interface | Description | Type | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
 | --------- | ----------- | ---- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
-| Port-Channel1 | DC2_L3_LEAF1_Po8 | switched | trunk | 11-12 | - | - | - | - | - | - |
+| Port-Channel1 | DC2_L3_LEAF1_Po8 | switched | trunk | 12 | - | - | - | - | - | - |
 
 #### Port-Channel Interfaces Device Configuration
 
@@ -207,7 +203,7 @@ interface Port-Channel1
    description DC2_L3_LEAF1_Po8
    no shutdown
    switchport
-   switchport trunk allowed vlan 11-12
+   switchport trunk allowed vlan 12
    switchport mode trunk
 ```
 
