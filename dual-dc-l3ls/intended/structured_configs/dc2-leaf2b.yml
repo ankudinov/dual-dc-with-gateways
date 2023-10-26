@@ -321,8 +321,9 @@ router_bfd:
 ip_igmp_snooping:
   globally_enabled: true
 ip_virtual_router_mac_address: 00:1c:73:00:00:99
-eos_cli: "route-map RM-TO-OVERLAY-CORE permit 10\n  match route-type local\n!\nrouter bgp 65202\n  address-family evpn\n    neighbor
-  EVPN-OVERLAY-CORE route-map RM-TO-OVERLAY-CORE out"
+eos_cli: "ip extcommunity-list regexp ECL-TYPE2-RT permit RT:1[0-9][0-9][0-9][0-9]:1[0-9][0-9][0-9][0-9]\n!\nroute-map RM-TO-OVERLAY-CORE
+  permit 10\n  match route-type local\nroute-map RM-TO-OVERLAY-CORE permit 20\n  match extcommunity ECL-TYPE2-RT\n!\nrouter bgp 65202\n
+  \ address-family evpn\n    neighbor EVPN-OVERLAY-CORE route-map RM-TO-OVERLAY-CORE out"
 vxlan_interface:
   Vxlan1:
     description: dc2-leaf2b_VTEP
