@@ -48,13 +48,6 @@ servers:
   #         description: PortChannel dc1-leaf2-server1
   #         mode: active
 
-  #     - endpoint_ports: [ iLO ]
-  #       switch_ports: [ Ethernet5 ]
-  #       switches: [ dc1-leaf2c ]
-  #       vlans: 11
-  #       mode: access
-  #       spanning_tree_portfast: edge
-
 
   # Start of definitions for DC2 (identical to DC1)
 
@@ -102,10 +95,3 @@ servers:
         port_channel:
           description: PortChannel dc2-leaf2-server1
           mode: active
-
-      - endpoint_ports: [ iLO ]
-        switch_ports: [ Ethernet5 ]
-        switches: [ dc2-leaf2c ]
-        vlans: 11
-        mode: access
-        spanning_tree_portfast: edge

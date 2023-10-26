@@ -26,8 +26,6 @@ all:
               hosts:
                 dc1-leaf1c:
                   ansible_host: 172.16.1.151
-                dc1-leaf2c:
-                  ansible_host: 172.16.1.152
         DC2:
           children:
             DC2_SPINES:
@@ -50,8 +48,6 @@ all:
               hosts:
                 dc2-leaf1c:
                   ansible_host: 172.16.1.161
-                dc2-leaf2c:
-                  ansible_host: 172.16.1.162
 
     NETWORK_SERVICES:
       children:

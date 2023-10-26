@@ -127,13 +127,3 @@ l2leaf:
           uplink_switch_interfaces:
             - Ethernet8
             - Ethernet8
-
-    - group: DC2_L2_LEAF2
-      uplink_switches: ['dc2-leaf2a', 'dc2-leaf2b']
-      nodes:
-        - name: dc2-leaf2c
-          id: 12
-          mgmt_ip: 172.16.1.162/24
-          uplink_switch_interfaces:
-            - Ethernet8
-            - Ethernet8

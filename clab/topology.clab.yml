@@ -29,8 +29,6 @@ topology:
       mgmt-ipv4: 172.16.1.104
     dc1-leaf1c:
       mgmt-ipv4: 172.16.1.151
-    dc1-leaf2c:
-      mgmt-ipv4: 172.16.1.152
     # dc2
     dc2-spine1:
       mgmt-ipv4: 172.16.1.21
@@ -46,8 +44,6 @@ topology:
       mgmt-ipv4: 172.16.1.114
     dc2-leaf1c:
       mgmt-ipv4: 172.16.1.161
-    dc2-leaf2c:
-      mgmt-ipv4: 172.16.1.162
 
   links:
   # dc1 leaf to spine
@@ -67,9 +63,6 @@ topology:
   # leaf1c connections
   - endpoints: ["dc1-leaf1c:eth1", "dc1-leaf1a:eth8"]
   - endpoints: ["dc1-leaf1c:eth2", "dc1-leaf1b:eth8"]
-  # leaf2c connections
-  - endpoints: ["dc1-leaf2c:eth1", "dc1-leaf2a:eth8"]
-  - endpoints: ["dc1-leaf2c:eth2", "dc1-leaf2b:eth8"]
   # dc2 leaf to spine
   - endpoints: ["dc2-leaf1a:eth1", "dc2-spine1:eth1"]
   - endpoints: ["dc2-leaf1a:eth2", "dc2-spine2:eth1"]
@@ -87,9 +80,6 @@ topology:
   # leaf1c connections
   - endpoints: ["dc2-leaf1c:eth1", "dc2-leaf1a:eth8"]
   - endpoints: ["dc2-leaf1c:eth2", "dc2-leaf1b:eth8"]
-    # leaf2c connections
-  - endpoints: ["dc2-leaf2c:eth1", "dc2-leaf2a:eth8"]
-  - endpoints: ["dc2-leaf2c:eth2", "dc2-leaf2b:eth8"]
   # dci links
   - endpoints: ["dc1-leaf2a:eth6", "dc2-leaf2a:eth6"]
   - endpoints: ["dc1-leaf2b:eth6", "dc2-leaf2b:eth6"]
