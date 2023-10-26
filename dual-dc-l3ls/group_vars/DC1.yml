@@ -89,6 +89,8 @@ l3leaf:
         evpn_l3:
           enabled: true
           inter_domain: true
+      filter:
+        only_vlans_in_use: true
       nodes:
         - name: dc1-leaf2a
           id: 3
