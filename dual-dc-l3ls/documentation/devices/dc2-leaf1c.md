@@ -29,6 +29,7 @@
 - [VRF Instances](#vrf-instances)
   - [VRF Instances Summary](#vrf-instances-summary)
   - [VRF Instances Device Configuration](#vrf-instances-device-configuration)
+- [EOS CLI](#eos-cli)
 
 ## Management
 
@@ -289,4 +290,18 @@ ip route vrf MGMT 0.0.0.0/0 172.16.1.1
 ```eos
 !
 vrf instance MGMT
+```
+
+## EOS CLI
+
+```eos
+!
+alias test1 ping 10.10.10.11 repeat 1000000 interval 2
+alias test2 ping 10.10.12.1 repeat 1000000 interval 2
+!
+interface Vlan10
+  ip address 10.10.10.21/24
+interface Vlan12
+  ip address 10.10.12.21/24
+
 ```
