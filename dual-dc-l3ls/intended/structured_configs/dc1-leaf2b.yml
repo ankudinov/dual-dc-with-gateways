@@ -90,6 +90,39 @@ router_bgp:
     - name: EVPN-OVERLAY-CORE
       domain_remote: true
       activate: true
+  vrfs:
+  - name: VRF10
+    router_id: 10.255.0.6
+    rd: 10.255.0.6:10
+    route_targets:
+      import:
+      - address_family: evpn
+        route_targets:
+        - '10:10'
+      export:
+      - address_family: evpn
+        route_targets:
+        - '10:10'
+    redistribute_routes:
+    - source_protocol: connected
+    neighbors:
+    - ip_address: 10.255.1.100
+      peer_group: MLAG-IPv4-UNDERLAY-PEER
+  vlans:
+  - id: 10
+    tenant: TENANT1
+    rd: 10.255.0.6:10010
+    route_targets:
+      both:
+      - 10010:10010
+      import_export_evpn_domains:
+      - domain: remote
+        route_target: 10010:10010
+    redistribute_routes:
+    - learned
+    rd_evpn_domain:
+      domain: remote
+      rd: 10.255.0.6:10010
 static_routes:
 - vrf: MGMT
   destination_address_prefix: 0.0.0.0/0
@@ -119,6 +152,9 @@ local_users:
 vrfs:
 - name: MGMT
   ip_routing: false
+- name: VRF10
+  tenant: TENANT1
+  ip_routing: true
 management_interfaces:
 - name: Management0
   description: oob_management
@@ -142,6 +178,14 @@ vlans:
   name: MLAG_PEER
   trunk_groups:
   - MLAG
+- id: 10
+  name: VRF10_VLAN10
+  tenant: TENANT1
+- id: 3009
+  name: MLAG_iBGP_VRF10
+  trunk_groups:
+  - LEAF_PEER_L3
+  tenant: TENANT1
 vlan_interfaces:
 - name: Vlan4093
   description: MLAG_PEER_L3_PEERING
@@ -154,6 +198,22 @@ vlan_interfaces:
   ip_address: 10.255.1.69/31
   no_autostate: true
   mtu: 1500
+- name: Vlan10
+  tenant: TENANT1
+  tags:
+  - DCI
+  description: VRF10_VLAN10
+  shutdown: false
+  ip_address_virtual: 10.10.10.1/24
+  vrf: VRF10
+- name: Vlan3009
+  tenant: TENANT1
+  type: underlay_peering
+  shutdown: false
+  description: 'MLAG_PEER_L3_iBGP: vrf VRF10'
+  vrf: VRF10
+  mtu: 1500
+  ip_address: 10.255.1.101/31
 port_channel_interfaces:
 - name: Port-Channel3
   description: MLAG_PEER_dc1-leaf2a_Po3
@@ -241,6 +301,11 @@ loopback_interfaces:
   description: VTEP_VXLAN_Tunnel_Source
   shutdown: false
   ip_address: 10.255.1.5/32
+- name: Loopback10
+  description: VRF10_VTEP_DIAGNOSTICS
+  shutdown: false
+  vrf: VRF10
+  ip_address: 10.255.10.6/32
 prefix_lists:
 - name: PL-LOOPBACKS-EVPN-OVERLAY
   sequence_numbers:
@@ -263,3 +328,12 @@ vxlan_interface:
       udp_port: 4789
       source_interface: Loopback1
       virtual_router_encapsulation_mac_address: mlag-system-id
+      vlans:
+      - id: 10
+        vni: 10010
+      vrfs:
+      - name: VRF10
+        vni: 10
+virtual_source_nat_vrfs:
+- name: VRF10
+  ip_address: 10.255.10.6

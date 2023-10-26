@@ -90,7 +90,8 @@ l3leaf:
           enabled: true
           inter_domain: true
       filter:
-        only_vlans_in_use: true
+        tags: [DCI]
+        only_vlans_in_use: false
       nodes:
         - name: dc2-leaf2a
           id: 13

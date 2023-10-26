@@ -181,6 +181,8 @@ vlan_interfaces:
   mtu: 1500
 - name: Vlan10
   tenant: TENANT1
+  tags:
+  - DCI
   description: VRF10_VLAN10
   shutdown: false
   ip_address_virtual: 10.10.10.1/24
