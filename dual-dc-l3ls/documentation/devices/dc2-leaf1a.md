@@ -191,12 +191,7 @@ vlan internal order ascending range 1006 1199
 | ------- | ---- | ------------ |
 | 11 | VRF10_VLAN11 | - |
 | 12 | VRF10_VLAN12 | - |
-| 21 | VRF11_VLAN21 | - |
-| 22 | VRF11_VLAN22 | - |
 | 3009 | MLAG_iBGP_VRF10 | LEAF_PEER_L3 |
-| 3010 | MLAG_iBGP_VRF11 | LEAF_PEER_L3 |
-| 3401 | L2_VLAN3401 | - |
-| 3402 | L2_VLAN3402 | - |
 | 4093 | LEAF_PEER_L3 | LEAF_PEER_L3 |
 | 4094 | MLAG_PEER | MLAG |
 
@@ -210,25 +205,9 @@ vlan 11
 vlan 12
    name VRF10_VLAN12
 !
-vlan 21
-   name VRF11_VLAN21
-!
-vlan 22
-   name VRF11_VLAN22
-!
 vlan 3009
    name MLAG_iBGP_VRF10
    trunk group LEAF_PEER_L3
-!
-vlan 3010
-   name MLAG_iBGP_VRF11
-   trunk group LEAF_PEER_L3
-!
-vlan 3401
-   name L2_VLAN3401
-!
-vlan 3402
-   name L2_VLAN3402
 !
 vlan 4093
    name LEAF_PEER_L3
@@ -251,7 +230,7 @@ vlan 4094
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
 | Ethernet3 | MLAG_PEER_dc2-leaf1b_Ethernet3 | *trunk | *- | *- | *['LEAF_PEER_L3', 'MLAG'] | 3 |
 | Ethernet4 | MLAG_PEER_dc2-leaf1b_Ethernet4 | *trunk | *- | *- | *['LEAF_PEER_L3', 'MLAG'] | 3 |
-| Ethernet8 | DC2-LEAF1C_Ethernet1 | *trunk | *11-12,21-22,3401-3402 | *- | *- | 8 |
+| Ethernet8 | DC2-LEAF1C_Ethernet1 | *trunk | *11-12 | *- | *- | 8 |
 
 *Inherited from Port-Channel Interface
 
@@ -305,7 +284,7 @@ interface Ethernet8
 | Interface | Description | Type | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
 | --------- | ----------- | ---- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
 | Port-Channel3 | MLAG_PEER_dc2-leaf1b_Po3 | switched | trunk | - | - | ['LEAF_PEER_L3', 'MLAG'] | - | - | - | - |
-| Port-Channel8 | DC2-LEAF1C_Po1 | switched | trunk | 11-12,21-22,3401-3402 | - | - | - | - | 8 | - |
+| Port-Channel8 | DC2-LEAF1C_Po1 | switched | trunk | 11-12 | - | - | - | - | 8 | - |
 
 #### Port-Channel Interfaces Device Configuration
 
@@ -323,7 +302,7 @@ interface Port-Channel8
    description DC2-LEAF1C_Po1
    no shutdown
    switchport
-   switchport trunk allowed vlan 11-12,21-22,3401-3402
+   switchport trunk allowed vlan 11-12
    switchport mode trunk
    mlag 8
 ```
@@ -339,7 +318,6 @@ interface Port-Channel8
 | Loopback0 | EVPN_Overlay_Peering | default | 10.255.128.13/32 |
 | Loopback1 | VTEP_VXLAN_Tunnel_Source | default | 10.255.129.13/32 |
 | Loopback10 | VRF10_VTEP_DIAGNOSTICS | VRF10 | 10.255.10.13/32 |
-| Loopback11 | VRF11_VTEP_DIAGNOSTICS | VRF11 | 10.255.11.13/32 |
 
 ##### IPv6
 
@@ -348,7 +326,6 @@ interface Port-Channel8
 | Loopback0 | EVPN_Overlay_Peering | default | - |
 | Loopback1 | VTEP_VXLAN_Tunnel_Source | default | - |
 | Loopback10 | VRF10_VTEP_DIAGNOSTICS | VRF10 | - |
-| Loopback11 | VRF11_VTEP_DIAGNOSTICS | VRF11 | - |
 
 
 #### Loopback Interfaces Device Configuration
@@ -370,12 +347,6 @@ interface Loopback10
    no shutdown
    vrf VRF10
    ip address 10.255.10.13/32
-!
-interface Loopback11
-   description VRF11_VTEP_DIAGNOSTICS
-   no shutdown
-   vrf VRF11
-   ip address 10.255.11.13/32
 ```
 
 ### VLAN Interfaces
@@ -386,10 +357,7 @@ interface Loopback11
 | --------- | ----------- | --- | ---- | -------- |
 | Vlan11 | VRF10_VLAN11 | VRF10 | - | False |
 | Vlan12 | VRF10_VLAN12 | VRF10 | - | False |
-| Vlan21 | VRF11_VLAN21 | VRF11 | - | False |
-| Vlan22 | VRF11_VLAN22 | VRF11 | - | False |
 | Vlan3009 | MLAG_PEER_L3_iBGP: vrf VRF10 | VRF10 | 1500 | False |
-| Vlan3010 | MLAG_PEER_L3_iBGP: vrf VRF11 | VRF11 | 1500 | False |
 | Vlan4093 | MLAG_PEER_L3_PEERING | default | 1500 | False |
 | Vlan4094 | MLAG_PEER | default | 1500 | False |
 
@@ -399,10 +367,7 @@ interface Loopback11
 | --------- | --- | ---------- | ------------------ | ------------------------- | ---- | ------ | ------- |
 | Vlan11 |  VRF10  |  -  |  10.10.11.1/24  |  -  |  -  |  -  |  -  |
 | Vlan12 |  VRF10  |  -  |  10.10.12.1/24  |  -  |  -  |  -  |  -  |
-| Vlan21 |  VRF11  |  -  |  10.10.21.1/24  |  -  |  -  |  -  |  -  |
-| Vlan22 |  VRF11  |  -  |  10.10.22.1/24  |  -  |  -  |  -  |  -  |
 | Vlan3009 |  VRF10  |  10.255.129.116/31  |  -  |  -  |  -  |  -  |  -  |
-| Vlan3010 |  VRF11  |  10.255.129.116/31  |  -  |  -  |  -  |  -  |  -  |
 | Vlan4093 |  default  |  10.255.129.116/31  |  -  |  -  |  -  |  -  |  -  |
 | Vlan4094 |  default  |  10.255.129.84/31  |  -  |  -  |  -  |  -  |  -  |
 
@@ -422,30 +387,11 @@ interface Vlan12
    vrf VRF10
    ip address virtual 10.10.12.1/24
 !
-interface Vlan21
-   description VRF11_VLAN21
-   no shutdown
-   vrf VRF11
-   ip address virtual 10.10.21.1/24
-!
-interface Vlan22
-   description VRF11_VLAN22
-   no shutdown
-   vrf VRF11
-   ip address virtual 10.10.22.1/24
-!
 interface Vlan3009
    description MLAG_PEER_L3_iBGP: vrf VRF10
    no shutdown
    mtu 1500
    vrf VRF10
-   ip address 10.255.129.116/31
-!
-interface Vlan3010
-   description MLAG_PEER_L3_iBGP: vrf VRF11
-   no shutdown
-   mtu 1500
-   vrf VRF11
    ip address 10.255.129.116/31
 !
 interface Vlan4093
@@ -478,17 +424,12 @@ interface Vlan4094
 | ---- | --- | ---------- | --------------- |
 | 11 | 10011 | - | - |
 | 12 | 10012 | - | - |
-| 21 | 10021 | - | - |
-| 22 | 10022 | - | - |
-| 3401 | 13401 | - | - |
-| 3402 | 13402 | - | - |
 
 ##### VRF to VNI and Multicast Group Mappings
 
 | VRF | VNI | Multicast Group |
 | ---- | --- | --------------- |
 | VRF10 | 10 | - |
-| VRF11 | 11 | - |
 
 #### VXLAN Interface Device Configuration
 
@@ -501,12 +442,7 @@ interface Vxlan1
    vxlan udp-port 4789
    vxlan vlan 11 vni 10011
    vxlan vlan 12 vni 10012
-   vxlan vlan 21 vni 10021
-   vxlan vlan 22 vni 10022
-   vxlan vlan 3401 vni 13401
-   vxlan vlan 3402 vni 13402
    vxlan vrf VRF10 vni 10
-   vxlan vrf VRF11 vni 11
 ```
 
 ## Routing
@@ -542,7 +478,6 @@ ip virtual-router mac-address 00:1c:73:00:00:99
 | default | True |
 | MGMT | False |
 | VRF10 | True |
-| VRF11 | True |
 
 #### IP Routing Device Configuration
 
@@ -551,7 +486,6 @@ ip virtual-router mac-address 00:1c:73:00:00:99
 ip routing
 no ip routing vrf MGMT
 ip routing vrf VRF10
-ip routing vrf VRF11
 ```
 
 ### IPv6 Routing
@@ -563,7 +497,6 @@ ip routing vrf VRF11
 | default | False |
 | MGMT | false |
 | VRF10 | false |
-| VRF11 | false |
 
 ### Static Routes
 
@@ -634,7 +567,6 @@ ip route vrf MGMT 0.0.0.0/0 172.16.1.1
 | 10.255.255.104 | 65200 | default | - | Inherited from peer group IPv4-UNDERLAY-PEERS | Inherited from peer group IPv4-UNDERLAY-PEERS | - | - | - | - | - |
 | 10.255.255.106 | 65200 | default | - | Inherited from peer group IPv4-UNDERLAY-PEERS | Inherited from peer group IPv4-UNDERLAY-PEERS | - | - | - | - | - |
 | 10.255.129.117 | Inherited from peer group MLAG-IPv4-UNDERLAY-PEER | VRF10 | - | Inherited from peer group MLAG-IPv4-UNDERLAY-PEER | Inherited from peer group MLAG-IPv4-UNDERLAY-PEER | - | - | - | - | - |
-| 10.255.129.117 | Inherited from peer group MLAG-IPv4-UNDERLAY-PEER | VRF11 | - | Inherited from peer group MLAG-IPv4-UNDERLAY-PEER | Inherited from peer group MLAG-IPv4-UNDERLAY-PEER | - | - | - | - | - |
 
 #### Router BGP EVPN Address Family
 
@@ -650,17 +582,12 @@ ip route vrf MGMT 0.0.0.0/0 172.16.1.1
 | ---- | ------------------- | ----------------- | ------------------- | ------------------- | ------------ |
 | 11 | 10.255.128.13:10011 | 10011:10011 | - | - | learned |
 | 12 | 10.255.128.13:10012 | 10012:10012 | - | - | learned |
-| 21 | 10.255.128.13:10021 | 10021:10021 | - | - | learned |
-| 22 | 10.255.128.13:10022 | 10022:10022 | - | - | learned |
-| 3401 | 10.255.128.13:13401 | 13401:13401 | - | - | learned |
-| 3402 | 10.255.128.13:13402 | 13402:13402 | - | - | learned |
 
 #### Router BGP VRFs
 
 | VRF | Route-Distinguisher | Redistribute |
 | --- | ------------------- | ------------ |
 | VRF10 | 10.255.128.13:10 | connected |
-| VRF11 | 10.255.128.13:11 | connected |
 
 #### Router BGP Device Configuration
 
@@ -715,26 +642,6 @@ router bgp 65201
       route-target both 10012:10012
       redistribute learned
    !
-   vlan 21
-      rd 10.255.128.13:10021
-      route-target both 10021:10021
-      redistribute learned
-   !
-   vlan 22
-      rd 10.255.128.13:10022
-      route-target both 10022:10022
-      redistribute learned
-   !
-   vlan 3401
-      rd 10.255.128.13:13401
-      route-target both 13401:13401
-      redistribute learned
-   !
-   vlan 3402
-      rd 10.255.128.13:13402
-      route-target both 13402:13402
-      redistribute learned
-   !
    address-family evpn
       neighbor EVPN-OVERLAY-PEERS activate
    !
@@ -747,14 +654,6 @@ router bgp 65201
       rd 10.255.128.13:10
       route-target import evpn 10:10
       route-target export evpn 10:10
-      router-id 10.255.128.13
-      neighbor 10.255.129.117 peer group MLAG-IPv4-UNDERLAY-PEER
-      redistribute connected
-   !
-   vrf VRF11
-      rd 10.255.128.13:11
-      route-target import evpn 11:11
-      route-target export evpn 11:11
       router-id 10.255.128.13
       neighbor 10.255.129.117 peer group MLAG-IPv4-UNDERLAY-PEER
       redistribute connected
@@ -851,7 +750,6 @@ route-map RM-MLAG-PEER-IN permit 10
 | -------- | ---------- |
 | MGMT | disabled |
 | VRF10 | enabled |
-| VRF11 | enabled |
 
 ### VRF Instances Device Configuration
 
@@ -860,8 +758,6 @@ route-map RM-MLAG-PEER-IN permit 10
 vrf instance MGMT
 !
 vrf instance VRF10
-!
-vrf instance VRF11
 ```
 
 ## Virtual Source NAT
@@ -871,12 +767,10 @@ vrf instance VRF11
 | Source NAT VRF | Source NAT IP Address |
 | -------------- | --------------------- |
 | VRF10 | 10.255.10.13 |
-| VRF11 | 10.255.11.13 |
 
 ### Virtual Source NAT Configuration
 
 ```eos
 !
 ip address virtual source-nat vrf VRF10 address 10.255.10.13
-ip address virtual source-nat vrf VRF11 address 10.255.11.13
 ```
