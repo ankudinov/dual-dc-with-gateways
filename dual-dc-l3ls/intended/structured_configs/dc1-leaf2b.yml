@@ -109,6 +109,20 @@ router_bgp:
     - ip_address: 10.255.1.100
       peer_group: MLAG-IPv4-UNDERLAY-PEER
   vlans:
+  - id: 10
+    tenant: TENANT1
+    rd: 10.255.0.6:10010
+    route_targets:
+      both:
+      - 10010:10010
+      import_export_evpn_domains:
+      - domain: remote
+        route_target: 10010:10010
+    redistribute_routes:
+    - learned
+    rd_evpn_domain:
+      domain: remote
+      rd: 10.255.0.6:10010
   - id: 11
     tenant: TENANT1
     rd: 10.255.0.6:10011
@@ -178,6 +192,9 @@ vlans:
   name: MLAG_PEER
   trunk_groups:
   - MLAG
+- id: 10
+  name: VRF10_VLAN10
+  tenant: TENANT1
 - id: 11
   name: VRF10_VLAN11
   tenant: TENANT1
@@ -198,6 +215,12 @@ vlan_interfaces:
   ip_address: 10.255.1.69/31
   no_autostate: true
   mtu: 1500
+- name: Vlan10
+  tenant: TENANT1
+  description: VRF10_VLAN10
+  shutdown: false
+  ip_address_virtual: 10.10.10.1/24
+  vrf: VRF10
 - name: Vlan11
   tenant: TENANT1
   description: VRF10_VLAN11
@@ -327,6 +350,8 @@ vxlan_interface:
       source_interface: Loopback1
       virtual_router_encapsulation_mac_address: mlag-system-id
       vlans:
+      - id: 10
+        vni: 10010
       - id: 11
         vni: 10011
       vrfs:

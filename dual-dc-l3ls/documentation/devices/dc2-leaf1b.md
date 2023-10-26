@@ -189,6 +189,7 @@ vlan internal order ascending range 1006 1199
 
 | VLAN ID | Name | Trunk Groups |
 | ------- | ---- | ------------ |
+| 10 | VRF10_VLAN10 | - |
 | 12 | VRF10_VLAN12 | - |
 | 3009 | MLAG_iBGP_VRF10 | LEAF_PEER_L3 |
 | 4093 | LEAF_PEER_L3 | LEAF_PEER_L3 |
@@ -197,6 +198,9 @@ vlan internal order ascending range 1006 1199
 ### VLANs Device Configuration
 
 ```eos
+!
+vlan 10
+   name VRF10_VLAN10
 !
 vlan 12
    name VRF10_VLAN12
@@ -226,7 +230,7 @@ vlan 4094
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
 | Ethernet3 | MLAG_PEER_dc2-leaf1a_Ethernet3 | *trunk | *- | *- | *['LEAF_PEER_L3', 'MLAG'] | 3 |
 | Ethernet4 | MLAG_PEER_dc2-leaf1a_Ethernet4 | *trunk | *- | *- | *['LEAF_PEER_L3', 'MLAG'] | 3 |
-| Ethernet8 | DC2-LEAF1C_Ethernet2 | *trunk | *12 | *- | *- | 8 |
+| Ethernet8 | DC2-LEAF1C_Ethernet2 | *trunk | *10,12 | *- | *- | 8 |
 
 *Inherited from Port-Channel Interface
 
@@ -280,7 +284,7 @@ interface Ethernet8
 | Interface | Description | Type | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
 | --------- | ----------- | ---- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
 | Port-Channel3 | MLAG_PEER_dc2-leaf1a_Po3 | switched | trunk | - | - | ['LEAF_PEER_L3', 'MLAG'] | - | - | - | - |
-| Port-Channel8 | DC2-LEAF1C_Po1 | switched | trunk | 12 | - | - | - | - | 8 | - |
+| Port-Channel8 | DC2-LEAF1C_Po1 | switched | trunk | 10,12 | - | - | - | - | 8 | - |
 
 #### Port-Channel Interfaces Device Configuration
 
@@ -298,7 +302,7 @@ interface Port-Channel8
    description DC2-LEAF1C_Po1
    no shutdown
    switchport
-   switchport trunk allowed vlan 12
+   switchport trunk allowed vlan 10,12
    switchport mode trunk
    mlag 8
 ```
@@ -351,6 +355,7 @@ interface Loopback10
 
 | Interface | Description | VRF |  MTU | Shutdown |
 | --------- | ----------- | --- | ---- | -------- |
+| Vlan10 | VRF10_VLAN10 | VRF10 | - | False |
 | Vlan12 | VRF10_VLAN12 | VRF10 | - | False |
 | Vlan3009 | MLAG_PEER_L3_iBGP: vrf VRF10 | VRF10 | 1500 | False |
 | Vlan4093 | MLAG_PEER_L3_PEERING | default | 1500 | False |
@@ -360,6 +365,7 @@ interface Loopback10
 
 | Interface | VRF | IP Address | IP Address Virtual | IP Router Virtual Address | VRRP | ACL In | ACL Out |
 | --------- | --- | ---------- | ------------------ | ------------------------- | ---- | ------ | ------- |
+| Vlan10 |  VRF10  |  -  |  10.10.10.1/24  |  -  |  -  |  -  |  -  |
 | Vlan12 |  VRF10  |  -  |  10.10.12.1/24  |  -  |  -  |  -  |  -  |
 | Vlan3009 |  VRF10  |  10.255.129.117/31  |  -  |  -  |  -  |  -  |  -  |
 | Vlan4093 |  default  |  10.255.129.117/31  |  -  |  -  |  -  |  -  |  -  |
@@ -368,6 +374,12 @@ interface Loopback10
 #### VLAN Interfaces Device Configuration
 
 ```eos
+!
+interface Vlan10
+   description VRF10_VLAN10
+   no shutdown
+   vrf VRF10
+   ip address virtual 10.10.10.1/24
 !
 interface Vlan12
    description VRF10_VLAN12
@@ -410,6 +422,7 @@ interface Vlan4094
 
 | VLAN | VNI | Flood List | Multicast Group |
 | ---- | --- | ---------- | --------------- |
+| 10 | 10010 | - | - |
 | 12 | 10012 | - | - |
 
 ##### VRF to VNI and Multicast Group Mappings
@@ -427,6 +440,7 @@ interface Vxlan1
    vxlan source-interface Loopback1
    vxlan virtual-router encapsulation mac-address mlag-system-id
    vxlan udp-port 4789
+   vxlan vlan 10 vni 10010
    vxlan vlan 12 vni 10012
    vxlan vrf VRF10 vni 10
 ```
@@ -566,6 +580,7 @@ ip route vrf MGMT 0.0.0.0/0 172.16.1.1
 
 | VLAN | Route-Distinguisher | Both Route-Target | Import Route Target | Export Route-Target | Redistribute |
 | ---- | ------------------- | ----------------- | ------------------- | ------------------- | ------------ |
+| 10 | 10.255.128.14:10010 | 10010:10010 | - | - | learned |
 | 12 | 10.255.128.14:10012 | 10012:10012 | - | - | learned |
 
 #### Router BGP VRFs
@@ -616,6 +631,11 @@ router bgp 65201
    neighbor 10.255.255.110 remote-as 65200
    neighbor 10.255.255.110 description dc2-spine2_Ethernet2
    redistribute connected route-map RM-CONN-2-BGP
+   !
+   vlan 10
+      rd 10.255.128.14:10010
+      route-target both 10010:10010
+      redistribute learned
    !
    vlan 12
       rd 10.255.128.14:10012

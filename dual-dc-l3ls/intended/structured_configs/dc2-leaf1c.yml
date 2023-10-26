@@ -65,8 +65,11 @@ port_channel_interfaces:
   type: switched
   shutdown: false
   mode: trunk
-  vlans: '12'
+  vlans: 10,12
 vlans:
+- id: 10
+  name: VRF10_VLAN10
+  tenant: TENANT1
 - id: 12
   name: VRF10_VLAN12
   tenant: TENANT1
