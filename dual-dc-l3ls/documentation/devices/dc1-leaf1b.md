@@ -45,6 +45,7 @@
 - [Virtual Source NAT](#virtual-source-nat)
   - [Virtual Source NAT Summary](#virtual-source-nat-summary)
   - [Virtual Source NAT Configuration](#virtual-source-nat-configuration)
+- [EOS CLI](#eos-cli)
 
 ## Management
 
@@ -773,4 +774,20 @@ vrf instance VRF10
 ```eos
 !
 ip address virtual source-nat vrf VRF10 address 10.255.10.4
+```
+
+## EOS CLI
+
+```eos
+!
+ip prefix-list PL-RT5-HOST permit 0.0.0.0/0 eq 32
+!
+route-map RM-CONN-TO-BGP-VRF permit 10
+  match ip address prefix-list PL-RT5-HOST
+  set community 1:1
+route-map RM-CONN-TO-BGP-VRF permit 20
+!
+router bgp 65101
+  vrf VRF10
+    redistribute connected route-map RM-CONN-TO-BGP-VRF
 ```

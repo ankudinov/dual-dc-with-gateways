@@ -793,17 +793,14 @@ ip address virtual source-nat vrf VRF10 address 10.255.10.15
 
 ```eos
 !
-ip extcommunity-list regexp ECL-TYPE2-RT permit RT:1[0-9][0-9][0-9][0-9]:1[0-9][0-9][0-9][0-9]
+ip community-list CL-RT5-REDISTRIBUTE permit 1:1
+ip prefix-list PL-RT5-HOST permit 0.0.0.0/0 le 32
 !
-route-map RM-TO-OVERLAY-CORE permit 10
-  match route-type local
+route-map RM-TO-OVERLAY-CORE deny 10
+  match community CL-RT5-REDISTRIBUTE
 route-map RM-TO-OVERLAY-CORE permit 20
-  match extcommunity ECL-TYPE2-RT
-!
-route-map RM-FROM-OVERLAY-PEERS permit 10
-  set community no-advertise
 !
 router bgp 65202
   address-family evpn
-    neighbor EVPN-OVERLAY-PEERS route-map RM-FROM-OVERLAY-PEERS in
+    neighbor EVPN-OVERLAY-CORE route-map RM-TO-OVERLAY-CORE out
 ```
