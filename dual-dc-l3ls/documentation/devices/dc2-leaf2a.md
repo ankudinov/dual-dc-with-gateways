@@ -800,7 +800,10 @@ route-map RM-TO-OVERLAY-CORE permit 10
 route-map RM-TO-OVERLAY-CORE permit 20
   match extcommunity ECL-TYPE2-RT
 !
+route-map RM-FROM-OVERLAY-PEERS permit 10
+  set community no-advertise
+!
 router bgp 65202
   address-family evpn
-    neighbor EVPN-OVERLAY-CORE route-map RM-TO-OVERLAY-CORE out
+    neighbor EVPN-OVERLAY-PEERS route-map RM-FROM-OVERLAY-PEERS in
 ```

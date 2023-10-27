@@ -298,6 +298,7 @@ vrf instance MGMT
 !
 alias test1 ping 10.10.10.21 repeat 1000000 interval 2
 alias test2 ping 10.10.11.1 repeat 1000000 interval 2
+alias test3 ping 10.10.12.21 repeat 1000000 interval 2
 !
 interface Vlan10
   ip address 10.10.10.11/24
