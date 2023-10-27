@@ -65,14 +65,6 @@ all:
       hosts:
         dc2-leaf2a:
         dc2-leaf2b:
-    DC1_L1:
-      hosts:
-        dc1-leaf1a:
-        dc1-leaf1b:
-    DC2_L1:
-      hosts:
-        dc2-leaf1a:
-        dc2-leaf1b:
     # CONNECTED_ENDPOINTS:
     #   children:
     #     DC1_L3_LEAVES:

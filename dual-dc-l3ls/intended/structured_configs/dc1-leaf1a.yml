@@ -316,9 +316,6 @@ router_bfd:
 ip_igmp_snooping:
   globally_enabled: true
 ip_virtual_router_mac_address: 00:1c:73:00:00:99
-eos_cli: "ip prefix-list PL-RT5-HOST permit 0.0.0.0/0 eq 32\n!\nroute-map RM-CONN-TO-BGP-VRF permit 10\n  match ip address prefix-list
-  PL-RT5-HOST\n  set community 1:1\nroute-map RM-CONN-TO-BGP-VRF permit 20\n!\nrouter bgp 65101\n  vrf VRF10\n    redistribute connected
-  route-map RM-CONN-TO-BGP-VRF"
 vxlan_interface:
   Vxlan1:
     description: dc1-leaf1a_VTEP
