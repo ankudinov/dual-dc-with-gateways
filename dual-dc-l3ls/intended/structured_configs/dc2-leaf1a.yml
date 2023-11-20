@@ -203,7 +203,7 @@ vlan_interfaces:
   ip_address: 10.255.129.116/31
 port_channel_interfaces:
 - name: Port-Channel3
-  description: MLAG_PEER_dc2-leaf1b_Po3
+  description: C::MLAG_dc2-leaf1b_Po3
   type: switched
   shutdown: false
   mode: trunk

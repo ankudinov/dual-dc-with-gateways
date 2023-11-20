@@ -283,7 +283,7 @@ interface Ethernet8
 
 | Interface | Description | Type | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
 | --------- | ----------- | ---- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
-| Port-Channel3 | MLAG_PEER_dc2-leaf1a_Po3 | switched | trunk | - | - | ['LEAF_PEER_L3', 'MLAG'] | - | - | - | - |
+| Port-Channel3 | C::MLAG_dc2-leaf1a_Po3 | switched | trunk | - | - | ['LEAF_PEER_L3', 'MLAG'] | - | - | - | - |
 | Port-Channel8 | DC2-LEAF1C_Po1 | switched | trunk | 10,12 | - | - | - | - | 8 | - |
 
 #### Port-Channel Interfaces Device Configuration
@@ -291,7 +291,7 @@ interface Ethernet8
 ```eos
 !
 interface Port-Channel3
-   description MLAG_PEER_dc2-leaf1a_Po3
+   description C::MLAG_dc2-leaf1a_Po3
    no shutdown
    switchport
    switchport mode trunk
