@@ -93,12 +93,26 @@ l3_edge:
 node_type_keys:
   - key: spine
     type: spine
+    default_evpn_role: server
     interface_descriptions:
       underlay_ethernet_interfaces: 'templates/underlay-interfaces.j2'
   - key: l3leaf
     type: l3leaf
+    connected_endpoints: true
+    default_evpn_role: client
+    mlag_support: true
+    network_services:
+      l2: true
+      l3: true
+    vtep: true
   - key: l2leaf
     type: l2leaf
+    connected_endpoints: true
+    mlag_support: true
+    network_services:
+      l2: true
+    underlay_router: false
+    uplink_type: port-channel
   #   interface_descriptions:
   #     underlay_ethernet_interfaces:
   #     mlag_ethernet_interfaces:
