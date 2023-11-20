@@ -95,8 +95,10 @@ node_type_keys:
     type: spine
     interface_descriptions:
       underlay_ethernet_interfaces: 'templates/underlay-interfaces.j2'
-  # - key: l3leaf
-  #   type: l3leaf
+  - key: l3leaf
+    type: l3leaf
+  - key: l2leaf
+    type: l2leaf
   #   interface_descriptions:
   #     underlay_ethernet_interfaces:
   #     mlag_ethernet_interfaces:
