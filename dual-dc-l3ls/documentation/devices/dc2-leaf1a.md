@@ -228,8 +228,8 @@ vlan 4094
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
-| Ethernet3 | MLAG_PEER_dc2-leaf1b_Ethernet3 | *trunk | *- | *- | *['LEAF_PEER_L3', 'MLAG'] | 3 |
-| Ethernet4 | MLAG_PEER_dc2-leaf1b_Ethernet4 | *trunk | *- | *- | *['LEAF_PEER_L3', 'MLAG'] | 3 |
+| Ethernet3 | C::MLAG_dc2-leaf1b_Ethernet3 | *trunk | *- | *- | *['LEAF_PEER_L3', 'MLAG'] | 3 |
+| Ethernet4 | C::MLAG_dc2-leaf1b_Ethernet4 | *trunk | *- | *- | *['LEAF_PEER_L3', 'MLAG'] | 3 |
 | Ethernet8 | C::dc2-leaf1c_Ethernet1 | *trunk | *10,12 | *- | *- | 8 |
 
 *Inherited from Port-Channel Interface
@@ -260,12 +260,12 @@ interface Ethernet2
    ip address 10.255.255.107/31
 !
 interface Ethernet3
-   description MLAG_PEER_dc2-leaf1b_Ethernet3
+   description C::MLAG_dc2-leaf1b_Ethernet3
    no shutdown
    channel-group 3 mode active
 !
 interface Ethernet4
-   description MLAG_PEER_dc2-leaf1b_Ethernet4
+   description C::MLAG_dc2-leaf1b_Ethernet4
    no shutdown
    channel-group 3 mode active
 !
