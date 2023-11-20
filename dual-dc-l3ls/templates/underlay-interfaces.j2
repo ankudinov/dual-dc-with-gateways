@@ -1,0 +1,5 @@
+{%- if ethernet_interfaces.peer_type is arista.avd.defined('l3leaf') -%}
+C::{{ link.peer }}_{{ link.peer_interface }}{{ switch.struct_cfg.tags | arista.avd.default() }}
+{%- elif link.type is arista.avd.defined('spine') -%}
+C::{{ link.peer }}_{{ link.peer_interface }}{{ switch.struct_cfg.tags | arista.avd.default() }}
+{%- endif -%}
