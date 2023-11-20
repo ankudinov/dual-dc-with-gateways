@@ -290,7 +290,7 @@ interface Ethernet8
 | Interface | Description | Type | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
 | --------- | ----------- | ---- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
 | Port-Channel3 | C::MLAG_dc1-leaf1b_Po3 | switched | trunk | - | - | ['LEAF_PEER_L3', 'MLAG'] | - | - | - | - |
-| Port-Channel5 | dc1-leaf1-server1_PortChannel dc1-leaf1-server1 | switched | trunk | 11-12,21-22 | 4092 | - | - | - | 5 | - |
+| Port-Channel5 | M::dc1-leaf1-server1 | switched | trunk | 11-12,21-22 | 4092 | - | - | - | 5 | - |
 | Port-Channel8 | DC1-LEAF1C_Po1 | switched | trunk | 10-11 | - | - | - | - | 8 | - |
 
 #### Port-Channel Interfaces Device Configuration
@@ -306,7 +306,7 @@ interface Port-Channel3
    switchport trunk group MLAG
 !
 interface Port-Channel5
-   description dc1-leaf1-server1_PortChannel dc1-leaf1-server1
+   description M::dc1-leaf1-server1
    no shutdown
    switchport
    switchport trunk allowed vlan 11-12,21-22

@@ -218,7 +218,7 @@ port_channel_interfaces:
   vlans: 10-11
   mlag: 8
 - name: Port-Channel5
-  description: dc1-leaf1-server1_PortChannel dc1-leaf1-server1
+  description: M::dc1-leaf1-server1
   type: switched
   shutdown: false
   mode: trunk
