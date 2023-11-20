@@ -230,7 +230,7 @@ vlan 4094
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
 | Ethernet3 | MLAG_PEER_dc2-leaf1b_Ethernet3 | *trunk | *- | *- | *['LEAF_PEER_L3', 'MLAG'] | 3 |
 | Ethernet4 | MLAG_PEER_dc2-leaf1b_Ethernet4 | *trunk | *- | *- | *['LEAF_PEER_L3', 'MLAG'] | 3 |
-| Ethernet8 | DC2-LEAF1C_Ethernet1 | *trunk | *10,12 | *- | *- | 8 |
+| Ethernet8 | C::dc2-leaf1c_Ethernet1 | *trunk | *10,12 | *- | *- | 8 |
 
 *Inherited from Port-Channel Interface
 
@@ -238,22 +238,22 @@ vlan 4094
 
 | Interface | Description | Type | Channel Group | IP Address | VRF |  MTU | Shutdown | ACL In | ACL Out |
 | --------- | ----------- | -----| ------------- | ---------- | ----| ---- | -------- | ------ | ------- |
-| Ethernet1 | P2P_LINK_TO_DC2-SPINE1_Ethernet1 | routed | - | 10.255.255.105/31 | default | 1500 | False | - | - |
-| Ethernet2 | P2P_LINK_TO_DC2-SPINE2_Ethernet1 | routed | - | 10.255.255.107/31 | default | 1500 | False | - | - |
+| Ethernet1 | C::dc2-spine1_Ethernet1 | routed | - | 10.255.255.105/31 | default | 1500 | False | - | - |
+| Ethernet2 | C::dc2-spine2_Ethernet1 | routed | - | 10.255.255.107/31 | default | 1500 | False | - | - |
 
 #### Ethernet Interfaces Device Configuration
 
 ```eos
 !
 interface Ethernet1
-   description P2P_LINK_TO_DC2-SPINE1_Ethernet1
+   description C::dc2-spine1_Ethernet1
    no shutdown
    mtu 1500
    no switchport
    ip address 10.255.255.105/31
 !
 interface Ethernet2
-   description P2P_LINK_TO_DC2-SPINE2_Ethernet1
+   description C::dc2-spine2_Ethernet1
    no shutdown
    mtu 1500
    no switchport
@@ -270,7 +270,7 @@ interface Ethernet4
    channel-group 3 mode active
 !
 interface Ethernet8
-   description DC2-LEAF1C_Ethernet1
+   description C::dc2-leaf1c_Ethernet1
    no shutdown
    channel-group 8 mode active
 ```

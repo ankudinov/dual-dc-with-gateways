@@ -242,7 +242,7 @@ ethernet_interfaces:
   peer: dc1-spine1
   peer_interface: Ethernet2
   peer_type: spine
-  description: P2P_LINK_TO_DC1-SPINE1_Ethernet2
+  description: C::dc1-spine1_Ethernet2
   shutdown: false
   mtu: 1500
   type: routed
@@ -251,7 +251,7 @@ ethernet_interfaces:
   peer: dc1-spine2
   peer_interface: Ethernet2
   peer_type: spine
-  description: P2P_LINK_TO_DC1-SPINE2_Ethernet2
+  description: C::dc1-spine2_Ethernet2
   shutdown: false
   mtu: 1500
   type: routed
@@ -260,7 +260,7 @@ ethernet_interfaces:
   peer: dc1-leaf1c
   peer_interface: Ethernet2
   peer_type: l2leaf
-  description: DC1-LEAF1C_Ethernet2
+  description: C::dc1-leaf1c_Ethernet2
   shutdown: false
   type: port-channel-member
   channel_group:

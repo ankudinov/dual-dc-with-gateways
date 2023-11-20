@@ -248,7 +248,7 @@ ethernet_interfaces:
   peer: dc2-spine1
   peer_interface: Ethernet3
   peer_type: spine
-  description: P2P_LINK_TO_DC2-SPINE1_Ethernet3
+  description: C::dc2-spine1_Ethernet3
   shutdown: false
   mtu: 1500
   type: routed
@@ -257,7 +257,7 @@ ethernet_interfaces:
   peer: dc2-spine2
   peer_interface: Ethernet3
   peer_type: spine
-  description: P2P_LINK_TO_DC2-SPINE2_Ethernet3
+  description: C::dc2-spine2_Ethernet3
   shutdown: false
   mtu: 1500
   type: routed

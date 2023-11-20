@@ -234,8 +234,8 @@ vlan 4094
 
 | Interface | Description | Type | Channel Group | IP Address | VRF |  MTU | Shutdown | ACL In | ACL Out |
 | --------- | ----------- | -----| ------------- | ---------- | ----| ---- | -------- | ------ | ------- |
-| Ethernet1 | P2P_LINK_TO_DC1-SPINE1_Ethernet4 | routed | - | 10.255.255.13/31 | default | 1500 | False | - | - |
-| Ethernet2 | P2P_LINK_TO_DC1-SPINE2_Ethernet4 | routed | - | 10.255.255.15/31 | default | 1500 | False | - | - |
+| Ethernet1 | C::dc1-spine1_Ethernet4 | routed | - | 10.255.255.13/31 | default | 1500 | False | - | - |
+| Ethernet2 | C::dc1-spine2_Ethernet4 | routed | - | 10.255.255.15/31 | default | 1500 | False | - | - |
 | Ethernet6 | P2P_LINK_TO_dc2-leaf2b_Ethernet6 | routed | - | 172.100.100.2/31 | default | 1500 | False | - | - |
 
 #### Ethernet Interfaces Device Configuration
@@ -243,14 +243,14 @@ vlan 4094
 ```eos
 !
 interface Ethernet1
-   description P2P_LINK_TO_DC1-SPINE1_Ethernet4
+   description C::dc1-spine1_Ethernet4
    no shutdown
    mtu 1500
    no switchport
    ip address 10.255.255.13/31
 !
 interface Ethernet2
-   description P2P_LINK_TO_DC1-SPINE2_Ethernet4
+   description C::dc1-spine2_Ethernet4
    no shutdown
    mtu 1500
    no switchport
