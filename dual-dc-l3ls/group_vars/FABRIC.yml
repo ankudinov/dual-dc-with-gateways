@@ -109,7 +109,7 @@ node_type_keys:
       underlay_ethernet_interfaces: 'templates/underlay-interfaces.j2'
       mlag_ethernet_interfaces: 'templates/mlag-ethernet-interfaces.j2'
       mlag_port_channel_interfaces: 'templates/mlag-po-interfaces.j2'
-  #     connected_endpoints_ethernet_interfaces:
+      connected_endpoints_ethernet_interfaces: 'templates/endpoint-ethernet-interfaces.j2'
   #     connected_endpoints_port_channel_interfaces:
   - key: l2leaf
     type: l2leaf

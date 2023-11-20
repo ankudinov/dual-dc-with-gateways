@@ -172,6 +172,7 @@ vlan 11
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
 | Ethernet1 | DC1-LEAF1A_Ethernet8 | *trunk | *10-11 | *- | *- | 1 |
 | Ethernet2 | DC1-LEAF1B_Ethernet8 | *trunk | *10-11 | *- | *- | 1 |
+| Ethernet5 |  dc1-leaf1-server1_iLO | access | 11 | - | - | - |
 
 *Inherited from Port-Channel Interface
 
@@ -188,6 +189,14 @@ interface Ethernet2
    description DC1-LEAF1B_Ethernet8
    no shutdown
    channel-group 1 mode active
+!
+interface Ethernet5
+   description dc1-leaf1-server1_iLO
+   no shutdown
+   switchport access vlan 11
+   switchport mode access
+   switchport
+   spanning-tree portfast
 ```
 
 ### Port-Channel Interfaces
